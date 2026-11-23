@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 4：電子商務漏斗</title>
+<!-- Google Tag Manager：把 GTM-XXXXXXX 換成你的容器 ID -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager -->
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:1rem;font-family:system-ui,sans-serif;background:linear-gradient(135deg,#ccfbf1,#e0e7ff)}
+  main{width:100%;max-width:22rem;background:#fff;padding:2rem;border-radius:1.25rem;box-shadow:0 12px 32px #0001;text-align:center}
+  h1{margin:0 0 .25rem;font-size:1.4rem}
+  p{margin:0 0 1.25rem;color:#64748b}
+  .price{font-size:2rem;font-weight:700;color:#0f766e;margin:0 0 1rem}
+  button{width:100%;margin:.4rem 0;padding:.9rem;border:0;border-radius:.75rem;font-size:1rem;font-weight:600;color:#fff;cursor:pointer}
+  button:active{transform:scale(.97)}
+  .s1{background:#0ea5e9}.s2{background:#6366f1}.s3{background:#16a34a}
+  #msg{margin:1rem 0 0;min-height:1.5em;color:#0f766e}
+</style>
+</head>
+<body>
+<main>
+  <h1>GA4 入門課</h1>
+  <p>依序按下三個步驟，模擬一次購買</p>
+  <div class="price">NT$1,990</div>
+  <button class="s1" onclick="send('view_item')">1. 查看課程</button>
+  <button class="s2" onclick="send('add_to_cart')">2. 加入購物車</button>
+  <button class="s3" onclick="send('purchase')">3. 完成付款</button>
+  <p id="msg"></p>
+</main>
+<script>
+  function send(name) {
+    const ecommerce = {
+      currency: 'TWD',
+      value: 1990,
+      items: [{ item_id: 'GA4-101', item_name: 'GA4 入門課', price: 1990, quantity: 1 }]
+    };
+    if (name === 'purchase') ecommerce.transaction_id = 'T' + Date.now();  // 每筆訂單不同
+    dataLayer.push({ ecommerce: null });  // 先清掉上一筆電商資料
+    dataLayer.push({ event: name, ecommerce });
+    document.querySelector('#msg').textContent = '已送出 ' + name;
+  }
+</script>
+</body>
+</html>
