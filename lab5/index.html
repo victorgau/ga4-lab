@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 5：使用者屬性與指定對象</title>
+<!-- Google Tag Manager：把 GTM-XXXXXXX 換成你的容器 ID -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager -->
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:1rem;font-family:system-ui,sans-serif;background:linear-gradient(135deg,#ede9fe,#fae8ff)}
+  main{width:100%;max-width:22rem;background:#fff;padding:2rem;border-radius:1.25rem;box-shadow:0 12px 32px #0001;text-align:center}
+  h1{margin:0 0 .25rem;font-size:1.4rem}
+  p{margin:0 0 1.25rem;color:#64748b}
+  .row{display:flex;gap:.5rem}
+  button{width:100%;margin:.4rem 0;padding:.9rem;border:0;border-radius:.75rem;font-size:1rem;font-weight:600;color:#fff;cursor:pointer}
+  button:active{transform:scale(.97)}
+  .free{background:#64748b}.pro{background:#9333ea}.go{background:#f59e0b}
+  #msg{margin:1rem 0 0;min-height:1.5em;color:#7e22ce}
+</style>
+</head>
+<body>
+<main>
+  <h1>會員中心</h1>
+  <p>先選身分登入，再開始上課</p>
+  <div class="row">
+    <button class="free" onclick="login('free')">免費會員</button>
+    <button class="pro" onclick="login('pro')">付費會員</button>
+  </div>
+  <button class="go" onclick="startLesson()">開始上課</button>
+  <p id="msg"></p>
+</main>
+<script>
+  const msg = text => document.querySelector('#msg').textContent = text;
+
+  function login(level) {
+    dataLayer.push({ event: 'login', member_level: level });  // member_level 描述「這個人」
+    msg('已登入：' + level);
+  }
+
+  function startLesson() {
+    dataLayer.push({ event: 'lesson_start', lesson_name: 'GA4 入門 第 1 課' });
+    msg('已送出 lesson_start');
+  }
+</script>
+</body>
+</html>
